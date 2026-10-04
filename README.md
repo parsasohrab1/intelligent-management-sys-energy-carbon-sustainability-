@@ -1,63 +1,63 @@
 # intelligent-management-sys-energy-carbon-sustainability-
 
-📄 مستند SRS – سیستم مدیریت هوشمند انرژی، کربن و پایداری (iEMS)
-۱. مقدمه (Introduction)
-هدف: توسعه سیستمی مبتنی بر داده و هوش مصنوعی برای پایش لحظه‌ای، پیش‌بینی و بهینه‌سازی مصرف حامل‌های انرژی (برق، بخار، سوخت) و محاسبه دقیق ردپای کربن در واحدهای پتروشیمی. هدف نهایی، کاهش هزینه‌های تولید و دستیابی به اهداف پایداری (ESG) است.
+📄 SRS Document – Intelligent Energy, Carbon and Sustainability Management System (iEMS)
+1. Introduction
+Purpose: Develop a data-driven, AI-based system for real-time monitoring, forecasting and optimization of energy carrier consumption (electricity, steam, fuel) and accurate calculation of the carbon footprint in petrochemical units. The ultimate goal is to reduce production costs and achieve sustainability (ESG) targets.
 
-دامنه: سیستم در ابتدا بر روی واحدهای الفین و PTA (اسید ترفتالیک خالص) که مصرف‌کنندگان اصلی انرژی هستند، پیاده‌سازی می‌شود .
+Scope: The system is initially implemented on olefin and PTA (purified terephthalic acid) units, which are the main energy consumers.
 
-۲. نیازمندی‌های کلی (General Requirements)
-شناسه	نیاز	اولویت
-R-GEN-01	دریافت داده‌های لحظه‌ای از سنسورهای انرژی و فلومترها با نرخ حداقل ۱ رکورد در ثانیه	بالا
-R-GEN-02	ذخیره‌سازی داده‌های خام و محاسبه‌شده در پایگاه داده سری زمانی (مانند InfluxDB)	بالا
-R-GEN-03	ارائه داشبورد جامع انرژی با نمایش مصرف لحظه‌ای، شدت انرژی و ردپای کربن هر محصول	بالا
-R-GEN-04	تولید خودکار گزارش‌های پایداری (مانند گزارش کربن Scope 1 و 2) در بازه‌های روزانه، ماهانه و سالانه	متوسط
-۳. نیازمندی‌های عملکردی (Functional Requirements)
-۳-۱. ماژول جمع‌آوری و یکپارچه‌سازی داده (Data Ingestion)
-FR-DATA-01: سیستم باید به پروتکل‌های OPC-UA متصل شده و داده‌های سنسورهای جریان، دما، فشار، توان الکتریکی و دبی بخار را دریافت کند.
+2. General Requirements
+ID	Requirement	Priority
+R-GEN-01	Receive real-time data from energy sensors and flowmeters at a rate of at least 1 record per second	High
+R-GEN-02	Store raw and computed data in a time-series database (such as InfluxDB)	High
+R-GEN-03	Provide a comprehensive energy dashboard showing instantaneous consumption, energy intensity and the carbon footprint of each product	High
+R-GEN-04	Automatically generate sustainability reports (such as Scope 1 and 2 carbon reports) on daily, monthly and annual intervals	Medium
+3. Functional Requirements
+3-1. Data Collection and Integration Module (Data Ingestion)
+FR-DATA-01: The system must connect to OPC-UA protocols and receive data from flow, temperature, pressure, electrical power and steam flow sensors.
 
-FR-DATA-02: داده‌های مربوط به ورودی‌های فرایند (مانند دبی خوراک و ترکیب آن) نیز برای محاسبه شدت انرژی (انرژی به ازای هر تن محصول) دریافت شوند.
+FR-DATA-02: Data on process inputs (such as feed flow rate and composition) must also be received to calculate energy intensity (energy per ton of product).
 
-۳-۲. ماژول پیش‌بینی و شبیه‌سازی انرژی (Energy Prediction)
-FR-ML-01: با توجه به چالش داده‌های کوچک (Small Data Problem) در این صنعت، سیستم باید قابلیت تولید داده‌های مجازی (Virtual Sample Generation) را با استفاده از روش‌های پیشرفته مانند مونت کارلو (MC) و بهینه‌سازی ازدحام ذرات (PSO) داشته باشد تا بتواند مدل‌های دقیق‌تری بسازد .
+3-2. Energy Prediction and Simulation Module (Energy Prediction)
+FR-ML-01: Given the small data problem in this industry, the system must be able to generate virtual data (Virtual Sample Generation) using advanced methods such as Monte Carlo (MC) and Particle Swarm Optimization (PSO) so that it can build more accurate models.
 
-FR-ML-02: پیش‌بینی مصرف انرژی (معادل نفت خام یا کیلووات-ساعت) برای ۶۰ دقیقه آینده با استفاده از مدل‌های یادگیری ماشین سریع (مانند ELM یا LSTM) .
+FR-ML-02: Forecast energy consumption (crude oil equivalent or kilowatt-hours) for the next 60 minutes using fast machine learning models (such as ELM or LSTM).
 
-FR-ML-03: شبیه‌سازی سناریوهای "چه-اگر" (What-if) برای بررسی تأثیر تغییر پارامترهای عملیاتی بر مصرف انرژی و انتشار کربن.
+FR-ML-03: Simulate "what-if" scenarios to examine the effect of changing operational parameters on energy consumption and carbon emissions.
 
-۳-۳. ماژول بهینه‌سازی و تحلیل پتانسیل صرفه‌جویی (Optimization)
-FR-OPT-01: تحلیل پتانسیل صرفه‌جویی انرژی با شناسایی واحدهای با راندمان پایین ("کم‌بازده") و ارائه پیشنهاد برای بهبود آن‌ها به سمت واحدهای با راندمان بالا ("پر بازده") .
+3-3. Optimization and Savings Potential Analysis Module (Optimization)
+FR-OPT-01: Analyze energy-saving potential by identifying low-efficiency units ("low-yield") and proposing improvements toward high-efficiency units ("high-yield").
 
-FR-OPT-02: ارائه توصیه‌های عملی به اپراتورها برای تنظیم متغیرهای کلیدی (مانند دمای راکتور یا نسبت خوراک) به منظور کاهش مصرف ویژه انرژی (SEC - Specific Energy Consumption).
+FR-OPT-02: Provide practical recommendations to operators for adjusting key variables (such as reactor temperature or feed ratio) in order to reduce specific energy consumption (SEC - Specific Energy Consumption).
 
-۳-۴. ماژول مدیریت کربن و پایداری (Carbon & Sustainability)
-FR-CAR-01: محاسبه خودکار انتشار کربن (Scope 1: انتشار مستقیم از احتراق سوخت، Scope 2: انتشار ناشی از برق خریداری‌شده) بر اساس ضرایب انتشار استاندارد (مانند IPCC).
+3-4. Carbon and Sustainability Management Module (Carbon & Sustainability)
+FR-CAR-01: Automatically calculate carbon emissions (Scope 1: direct emissions from fuel combustion, Scope 2: emissions from purchased electricity) based on standard emission factors (such as IPCC).
 
-FR-CAR-02: یکپارچه‌سازی با سیستم‌های خرید و فروش کربن برای گزارش‌دهی دقیق.
+FR-CAR-02: Integration with carbon trading systems for accurate reporting.
 
-FR-CAR-03: نمایش شدت کربن (Carbon Intensity) به عنوان یک شاخص کلیدی عملکرد (KPI) در داشبورد اصلی.
+FR-CAR-03: Display carbon intensity (Carbon Intensity) as a key performance indicator (KPI) on the main dashboard.
 
-۴. نیازمندی‌های غیرعملکردی (Non-Functional Requirements)
-شناسه	نیاز	مقدار هدف
-NFR-PER-01	زمان پاسخ‌دهی پیش‌بینی	کمتر از ۳ ثانیه
-NFR-PER-02	دقت مدل پیش‌بینی مصرف انرژی	خطای کمتر از ۵٪ (MAPE)
-NFR-REL-01	در دسترس بودن سیستم	۹۹.۹۵٪
-NFR-SEC-01	احراز هویت و نقش‌های دسترسی	مبتنی بر RBAC با 2FA برای تغییر تنظیمات
-۵. معماری فنی (Technical Architecture)
-زبان برنامه‌نویسی: Python 3.10+
+4. Non-Functional Requirements
+ID	Requirement	Target value
+NFR-PER-01	Prediction response time	Less than 3 seconds
+NFR-PER-02	Energy consumption prediction model accuracy	Error below 5% (MAPE)
+NFR-REL-01	System availability	99.95%
+NFR-SEC-01	Authentication and access roles	RBAC-based with 2FA for changing settings
+5. Technical Architecture
+Programming language: Python 3.10+
 
-چارچوب وب: FastAPI
+Web framework: FastAPI
 
-پایگاه داده سری زمانی: InfluxDB / TimescaleDB
+Time-series database: InfluxDB / TimescaleDB
 
-کش: Redis
+Cache: Redis
 
-ارسال پیام: Apache Kafka برای استریم داده‌های سنسور
+Messaging: Apache Kafka for streaming sensor data
 
-MLOps: MLflow برای ثبت و مدیریت مدل‌های ELM و LSTM
+MLOps: MLflow for logging and managing ELM and LSTM models
 
-🧪 کد تولید داده‌های سنتتیک (Synthetic Data Generator)
-کد زیر داده‌های ۱۰,۰۰۰ ثانیه‌ای (حدود ۲.۷ ساعت) را برای متغیرهای مرتبط با انرژی، کربن و پایداری شبیه‌سازی می‌کند. این داده‌ها بر اساس مفاهیم واقعی مصرف انرژی در واحدهای الفین و PTA طراحی شده‌اند .
+🧪 Synthetic Data Generator Code
+The following code simulates 10,000 seconds of data (about 2.7 hours) for variables related to energy, carbon and sustainability. These data are designed based on real energy consumption concepts in olefin and PTA units.
 
 python
 import numpy as np
@@ -65,51 +65,51 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 # ==============================================
-# پارامترهای تولید داده
+# Data generation parameters
 # ==============================================
-NUM_RECORDS = 10000          # 10,000 رکورد (ثانیه)
-START_TIME = datetime(2026, 7, 22, 8, 0, 0)   # زمان شروع
+NUM_RECORDS = 10000          # 10,000 records (seconds)
+START_TIME = datetime(2026, 7, 22, 8, 0, 0)   # start time
 
 # ==============================================
-# تولید برچسب زمانی با فاصله 1 ثانیه
+# Generate timestamps at 1-second intervals
 # ==============================================
 timestamps = [START_TIME + timedelta(seconds=i) for i in range(NUM_RECORDS)]
-t = np.linspace(0, 10 * np.pi, NUM_RECORDS)  # برای ایجاد الگوهای سیکلی
+t = np.linspace(0, 10 * np.pi, NUM_RECORDS)  # to create cyclic patterns
 
 # ==============================================
-# 1. متغیرهای ورودی (مصرف حامل‌های انرژی)
+# 1. Input variables (energy carrier consumption)
 # ==============================================
 
-# a) مصرف برق (توان لحظه‌ای) - محدوده 5 تا 25 مگاوات
+# a) Electricity consumption (instantaneous power) - range 5 to 25 MW
 electricity_power = 15 + 5 * np.sin(t * 0.2) + 0.005 * np.arange(NUM_RECORDS) + np.random.normal(0, 0.5, NUM_RECORDS)
 electricity_power = np.clip(electricity_power, 5, 25)
 
-# b) دبی جریان سوخت گاز طبیعی - محدوده 50 تا 150 هزار مترمکعب بر ساعت
+# b) Natural gas fuel flow rate - range 50 to 150 thousand cubic meters per hour
 fuel_gas_flow = 100 + 30 * np.sin(t * 0.15 + 1.5) + np.random.normal(0, 3, NUM_RECORDS)
 fuel_gas_flow = np.clip(fuel_gas_flow, 50, 150)
 
-# c) دبی بخار مصرفی (Steam) - محدوده 10 تا 50 تن بر ساعت
+# c) Steam consumption flow rate (Steam) - range 10 to 50 tons per hour
 steam_flow = 30 + 10 * np.sin(t * 0.25 + 0.8) + np.random.normal(0, 1.5, NUM_RECORDS)
 steam_flow = np.clip(steam_flow, 10, 50)
 
 # ==============================================
-# 2. متغیرهای فرایندی (تأثیرگذار بر مصرف)
+# 2. Process variables (affecting consumption)
 # ==============================================
 
-# دبی خوراک ورودی (میزان تولید) - محدوده 80 تا 120 تن بر ساعت
+# Feed inlet flow rate (production rate) - range 80 to 120 tons per hour
 feed_flow = 100 + 15 * np.sin(t * 0.1 + 2.0) + np.random.normal(0, 2, NUM_RECORDS)
 feed_flow = np.clip(feed_flow, 80, 120)
 
-# دمای راکتور - محدوده 380 تا 420 درجه سانتی‌گراد
+# Reactor temperature - range 380 to 420 degrees Celsius
 reactor_temp = 400 + 15 * np.sin(t * 0.2 + 1.0) + np.random.normal(0, 1, NUM_RECORDS)
 reactor_temp = np.clip(reactor_temp, 380, 420)
 
 # ==============================================
-# 3. متغیرهای هدف (خروجی)
+# 3. Target variables (output)
 # ==============================================
 
-# a) شدت انرژی (انرژی مصرفی به ازای هر تن محصول) - محدوده 500 تا 800 کیلوگرم معادل نفت خام بر تن
-# این متغیر تابعی از دبی خوراک، دما و مصرف سوخت است [citation:6]
+# a) Energy intensity (energy consumed per ton of product) - range 500 to 800 kg crude oil equivalent per ton
+# This variable is a function of feed flow, temperature and fuel consumption [citation:6]
 energy_intensity = (600 + 
                     0.5 * fuel_gas_flow + 
                     2 * steam_flow - 
@@ -118,19 +118,19 @@ energy_intensity = (600 +
                     np.random.normal(0, 10, NUM_RECORDS))
 energy_intensity = np.clip(energy_intensity, 500, 800)
 
-# b) انتشار کربن (Scope 1) - کیلوگرم CO2 به ازای هر تن محصول
-# ضرایب انتشار: 0.2 برای گاز طبیعی، 0.3 برای بخار (مقدار فرضی)
+# b) Carbon emission (Scope 1) - kg CO2 per ton of product
+# Emission factors: 0.2 for natural gas, 0.3 for steam (assumed value)
 carbon_emission = (0.2 * fuel_gas_flow + 0.3 * steam_flow + 
                    0.05 * electricity_power + np.random.normal(0, 2, NUM_RECORDS))
 carbon_emission = np.clip(carbon_emission, 20, 80)
 
-# c) راندمان انرژی (بازده) - درصد (هرچه بالاتر، مصرف کمتر)
-# با افزایش شدت انرژی، راندمان کاهش می‌یابد
+# c) Energy efficiency (yield) - percent (the higher, the lower the consumption)
+# As energy intensity increases, efficiency decreases
 energy_efficiency = 85 - 0.025 * (energy_intensity - 500) + np.random.normal(0, 1, NUM_RECORDS)
 energy_efficiency = np.clip(energy_efficiency, 60, 92)
 
 # ==============================================
-# ساخت دیتافریم
+# Build the dataframe
 # ==============================================
 df = pd.DataFrame({
     'timestamp': timestamps,
@@ -139,49 +139,49 @@ df = pd.DataFrame({
     'steam_flow_tonh': np.round(steam_flow, 2),
     'feed_flow_tonh': np.round(feed_flow, 2),
     'reactor_temp_c': np.round(reactor_temp, 2),
-    'energy_intensity_kgoe_ton': np.round(energy_intensity, 2),    # هدف 1
-    'carbon_emission_kgco2_ton': np.round(carbon_emission, 2),     # هدف 2
-    'energy_efficiency_percent': np.round(energy_efficiency, 2)    # هدف 3
+    'energy_intensity_kgoe_ton': np.round(energy_intensity, 2),    # target 1
+    'carbon_emission_kgco2_ton': np.round(carbon_emission, 2),     # target 2
+    'energy_efficiency_percent': np.round(energy_efficiency, 2)    # target 3
 })
 
 # ==============================================
-# ذخیره در فایل CSV
+# Save to CSV file
 # ==============================================
 output_file = "petrochemical_energy_carbon_data_10k.csv"
 df.to_csv(output_file, index=False)
-print(f"✅ داده‌های انرژی و کربن با موفقیت در فایل '{output_file}' ذخیره شدند.")
-print(f"📊 تعداد رکوردها: {len(df):,} - تعداد متغیرها: {len(df.columns)}")
+print(f"✅ Energy and carbon data saved successfully to file '{output_file}'.")
+print(f"📊 Number of records: {len(df):,} - Number of variables: {len(df.columns)}")
 
-print("\n🔍 نمونه داده‌های تولید شده:")
+print("\n🔍 Sample of generated data:")
 print(df.head())
 
-print("\n📈 آمار توصیفی داده‌ها:")
+print("\n📈 Descriptive statistics of the data:")
 print(df.describe())
-📊 خروجی نمونه (نمایش ۵ رکورد اول):
+📊 Sample output (first 5 records shown):
 timestamp	electricity_power_mw	fuel_gas_flow_km3h	steam_flow_tonh	feed_flow_tonh	reactor_temp_c	energy_intensity_kgoe_ton	carbon_emission_kgco2_ton	energy_efficiency_percent
 2026-07-22 08:00:00	15.23	101.45	30.12	100.34	401.23	652.45	45.12	71.45
 2026-07-22 08:00:01	15.45	102.10	30.55	100.67	401.45	655.12	45.89	71.12
 ...	...	...	...	...	...	...	...	...
-🔧 نکات فنی پیاده‌سازی کد:
-نرخ نمونه‌برداری: timedelta(seconds=i) تضمین می‌کند که داده‌ها با نرخ ۱ رکورد در ثانیه شبیه‌سازی شوند.
+🔧 Technical implementation notes:
+Sampling rate: timedelta(seconds=i) ensures the data are simulated at a rate of 1 record per second.
 
-الگوهای واقع‌گرایانه: استفاده از توابع سینوسی و نویز گاوسی برای شبیه‌سازی تغییرات طبیعی فرایند.
+Realistic patterns: Sinusoidal functions and Gaussian noise are used to simulate natural process variations.
 
-روابط فیزیکی: متغیرهای هدف (شدت انرژی و انتشار کربن) به عنوان توابعی از متغیرهای ورودی (مصرف حامل‌ها و شرایط فرایند) طراحی شده‌اند تا مدل بتواند الگوهای بهینه‌سازی را بیاموزد .
+Physical relationships: The target variables (energy intensity and carbon emission) are designed as functions of the input variables (carrier consumption and process conditions) so the model can learn optimization patterns.
 
-کاربرد روش‌های VSG: این داده‌ها می‌توانند به عنوان داده پایه برای روش‌های پیشرفته تولید داده مجازی (مانند تزریق نویز یا ELM) برای بهبود دقت مدل‌های پیش‌بینی انرژی در شرایط داده‌های کوچک استفاده شوند
+Use of VSG methods: These data can serve as baseline data for advanced virtual data generation methods (such as noise injection or ELM) to improve the accuracy of energy prediction models under small-data conditions.
 
 
-📄 مستند SRS – محصول ۲: مدیریت انرژی، کربن و پایداری (با قابلیت ثبت اختراع)
-۱. مقدمه
-هدف: توسعه سیستمی مبتنی بر داده و هوش مصنوعی برای پایش لحظه‌ای، پیش‌بینی و بهینه‌سازی مصرف حامل‌های انرژی (برق، بخار، سوخت) و محاسبه دقیق ردپای کربن در کل زنجیره ارزش (Scope 1، 2 و 3) .
+📄 SRS Document – Product 2: Energy, Carbon and Sustainability Management (Patentable)
+1. Introduction
+Purpose: Develop a data-driven, AI-based system for real-time monitoring, forecasting and optimization of energy carrier consumption (electricity, steam, fuel) and accurate calculation of the carbon footprint across the entire value chain (Scope 1, 2 and 3).
 
-نوآوری ثبت اختراع: برخلاف اختراع تایوانی (US 12586082) که عمدتاً بر Scope 1 و 2 متمرکز است، این سیستم "محاسبه و بهینه‌سازی هم‌زمان Scope 1، 2 و 3 (شامل زنجیره تأمین و توزیع)" را ارائه می‌دهد و با ضرایب انتشار بومی‌شده ایران سازگار است.
+Patent innovation: Unlike the Taiwanese patent (US 12586082), which mainly focuses on Scope 1 and 2, this system provides "simultaneous calculation and optimization of Scope 1, 2 and 3 (including the supply and distribution chain)" and is compatible with localized Iranian emission factors.
 
-۲. نیازمندی‌های عملکردی (با تأکید بر قابلیت‌های اختراع)
-شناسه	نیاز	قابلیت ثبت اختراع
-FR-DATA-01	دریافت داده‌های لحظه‌ای از سنسورهای انرژی (فلومترها، توان‌سنج‌ها، دبی‌سنج‌های بخار)	جمع‌آوری داده‌های انرژی بلادرنگ
-FR-ML-01	پیش‌بینی مصرف ویژه انرژی (SEC) برای ۶۰ دقیقه آینده با مدل‌های ELM یا LSTM 	پیش‌بینی مصرف انرژی با داده‌های کوچک
-FR-CAR-01	محاسبه خودکار انتشار کربن Scope 1 (احتراق سوخت)، Scope 2 (برق خریداری‌شده) و Scope 3 (زنجیره تأمین و توزیع) بر اساس ضرایب انتشار IPCC	محاسبه کامل Scope 1، 2 و 3 (نوآوری اصلی)
-FR-OPT-01	شبیه‌سازی سناریوهای "چه-اگر" برای بررسی تأثیر تغییر خوراک، سوخت یا فرایند بر انتشار کربن و مصرف انرژی	شبیه‌سازی کربن‌محور
-FR-INT-01	اتصال خودکار به سامانه‌های ملی کربن و اعتبارات زیست‌محیطی ایران	بومی‌سازی برای قوانین ایران
+2. Functional Requirements (with emphasis on patent capabilities)
+ID	Requirement	Patent capability
+FR-DATA-01	Receive real-time data from energy sensors (flowmeters, power meters, steam flowmeters)	Real-time energy data collection
+FR-ML-01	Forecast specific energy consumption (SEC) for the next 60 minutes with ELM or LSTM models 	Energy consumption forecasting with small data
+FR-CAR-01	Automatically calculate carbon emissions for Scope 1 (fuel combustion), Scope 2 (purchased electricity) and Scope 3 (supply and distribution chain) based on IPCC emission factors	Complete Scope 1, 2 and 3 calculation (main innovation)
+FR-OPT-01	Simulate "what-if" scenarios to examine the effect of changing feed, fuel or process on carbon emissions and energy consumption	Carbon-oriented simulation
+FR-INT-01	Automatic connection to Iran's national carbon and environmental credit systems	Localization for Iranian regulations
